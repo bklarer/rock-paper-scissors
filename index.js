@@ -41,24 +41,75 @@ function getPlayerChoice(userInput) {
     return playerSelection
 }
 
-function game(userInput) {
+function playRound(userInput) {
     let computerSelection = getComputerChoice()
     let playerSelection = getPlayerChoice(userInput)
     let selections = `Computer: ${computerSelection}, Player: ${playerSelection}`
 
-    if(userInput === false) {
+    if(playerSelection === false) {
         return "Must pick 'rock' 'paper', or 'scissors"
     } else if(computerSelection === "rock" && playerSelection === "rock") {
-        return `${selections}. Tie!`
+        console.log(selections, "Tie!")
+        return `Tie!`
     } else if (computerSelection === "paper" && playerSelection === "paper") {
-        return `${selections}. Tie!`
+        console.log(selections, "Tie")
+        return `Tie!`
     } else if (computerSelection === "scissors" && playerSelection === "scissors") {
-        return `${selections}. Tie!`
+        console.log(selections, "Tie")
+        return `Tie!`
     } else if (computerSelection === "rock" && playerSelection === "scissors") {
-        return `${selections}. Computer wins!`
+        console.log(selections, "Computer wins!")
+        return `Computer wins!`
     } else if (computerSelection === "paper" && playerSelection === "rock") {
-        return `${selections}. Computer wins!`
+        console.log(selections, "Computer wins!")
+        return `Computer wins!`
     } else if (computerSelection === "scissors" && playerSelection === "paper") {
-        return `${selections}. Computer wins!`
-    } else return `${selections}. Player wins!`
+        console.log(selections, "Computer wins!")
+        return `Computer wins!`
+    } else  {
+        console.log(selections, "Player wins!")
+        return `Player wins!`
+    }
+}
+
+
+function game() {
+    let player = 0
+    let computer = 0
+    let winner = false
+    
+    for (let i = 0; i < 5; i++) {
+        let userInput = prompt("rock, paper, or scissors?")
+        let results = playRound(userInput)
+
+
+        switch(results) {
+            case "Must pick 'rock' 'paper', or 'scissors":
+                userInput = prompt("Must pick rock, paper, or scissors")
+                results = playRound(userInput)
+            case "Tie!":
+                null
+                break
+            case "Computer wins!":
+                computer += 1
+                break
+            case "Player wins!":
+                player += 1
+                break
+        }
+        console.log(`Round: ${i + 1}. Score is player: ${player}, computer: ${computer}`)
+    }
+
+        if(winner === false || player === computer) {
+            console.log("No one wins")
+            winner = "No one"
+        } else if (player > computer) {
+            console.log("Player wins!")
+            winner = "Player"
+        } else {
+            console.log("Computer wins!")
+            winner = "Computer"
+        }    
+        return winner
+
 }
